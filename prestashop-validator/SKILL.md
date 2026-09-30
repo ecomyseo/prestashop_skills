@@ -19,7 +19,7 @@ This skill allows you to run a complete validation of a PrestaShop module direct
 To validate a module located at a specific path:
 
 ```bash
-php "C:/Users/Usuario/.gemini/antigravity/global_skills/prestashop_validator/validator.php" --path="Z:/path/to/your/module"
+php "<skills>/prestashop-validator/validator.php" --path="Z:/path/to/your/module"
 ```
 
 ### Context Awareness
@@ -32,7 +32,7 @@ If the user asks to validate **"the current module"**, **"this folder"**, or **"
 To validate and automatically apply fixes (missing index.php, missing security tokens):
 
 ```bash
-php "C:/Users/Usuario/.gemini/antigravity/global_skills/prestashop_validator/validator.php" --path="Z:/path/to/your/module" --fix
+php "<skills>/prestashop-validator/validator.php" --path="Z:/path/to/your/module" --fix
 ```
 
 ## When to use
@@ -50,4 +50,4 @@ Además de los checks estructurales, el validador debe asegurar:
 
 ## Location
 This global skill is permanently installed at:
-`C:\Users\Usuario\.gemini\antigravity\global_skills\prestashop_validator\`
+`<skills>\prestashop-validator\`

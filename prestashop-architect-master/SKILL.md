@@ -1,4 +1,33 @@
 ####################################################################################################
+# !!! AVISO PRIORITARIO — LEER ANTES QUE NADA !!!
+#
+# ESTE SKILL DESCRIBE LA ARQUITECTURA SYMFONY/CQRS "DE MANUAL" DE PRESTASHOP.
+# NO ES EL ESTANDAR DE ESTE USUARIO.
+#
+# EN LOS MODULOS DE ESTE USUARIO ESTA **PROHIBIDO**:
+#   - crear src/  (src/Domain, src/Application, src/Infrastructure, src/UI, src/Controller...)
+#   - crear config/services.yml o config/routes.yml
+#   - crear composer.json / vendor/
+#   - crear carpeta upgrade/  (usar la funcion addnewfeatures())
+#   - usar namespace en el fichero principal del modulo
+#   - declare(strict_types=1)  (se exige compatibilidad PHP 7.4)
+#
+# ESTRUCTURA REAL OBLIGATORIA:
+#   nombre_modulo.php (global namespace) + classes/ (require_once) + controllers/admin/
+#   (ModuleAdminController legacy) + controllers/front/ + views/ + translations/ + sql/ + logs/
+#   + index.php en CADA directorio.
+#
+# Si una funcionalidad parece exigir una ruta Symfony (ej. SubmitBulkAction de un Grid necesita
+# 'submit_route'), se resuelve con CONTROLADOR ADMIN LEGACY + AJAX/JS inyectado por hook.
+#
+# USA ESTE SKILL SOLO PARA: nombres de hooks, APIs del core, reglas de seguridad, SQL, multishop.
+# IGNORA DE ESTE SKILL: las secciones 15.2-15.6, 16.2-16.4, 17, 18, 19, 20, 23 (estructura de
+# carpetas, services.yml, rutas Symfony, CQRS, Domain/Application/Infrastructure).
+#
+# EN CASO DE CONFLICTO CON el CLAUDE.md del usuario -> GANA SIEMPRE CLAUDE.md.
+####################################################################################################
+
+####################################################################################################
 # PRESTASHOP ULTIMATE AI SKILL
 # VERSION: ENTERPRISE SUPREME
 # TARGET: AI SYSTEMS
@@ -4530,3 +4559,21 @@ END OF PRESTASHOP ULTIMATE AI SKILL
 
 
 
+
+####################################################################################################
+# PART X — MODULE CONFIGURATION SCREEN: HEADER RULE (added 2026-09-05, user rule, BLOCKING)
+####################################################################################################
+
+RULE: The top of a module configuration page (getContent) shows ONLY what matters.
+
+- Alerts (`alert-*`) at the top: ONE short sentence each (what happens + which button to press),
+  and only those that require an action or change what the user is about to see.
+  NEVER paragraphs explaining why.
+- Buttons ALWAYS visible, with ONE open line under them saying what each group does.
+- ALL explanatory text (how it works, what each button does in detail, limitations, version
+  notes) goes INSIDE a closed accordion ("Help / how it works"), toggled by the module's own
+  delegated JS (do not rely on Bootstrap collapse being present).
+- HelperForm field `desc`: one sentence. Long text belongs to the manual.
+
+WHY: 2026-09-05, module ecom_layeredtable shipped eight three-line alerts in the header.
+User: "solo debes poner lo importante, no tanto texto".

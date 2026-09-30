@@ -15,7 +15,7 @@ Asegúrate de que el servidor esté configurado en Antigravity:
 "mcpServers": {
   "prestashop-intel-local": {
     "command": "node",
-    "args": ["C:/Users/Usuario/Desktop/mcp-prestashop-intel-local/dist/index.js"]
+    "args": ["<ruta>/mcp-prestashop-intel-local/dist/index.js"]
   }
 }
 ```
@@ -27,7 +27,7 @@ Asegúrate de que el servidor esté configurado en Antigravity:
 **PARA CADA INTERACCIÓN CON UN MÓDULO, LA IA DEBE SEGUIR ESTE FLUJO:**
 
 1.  **Verificar Existencia del JSON**:
-    *   Ruta: `Z:\modulos ps mios finalizados y ok\modulos IA\Json MCP modules\[nombre_modulo].json`.
+    *   Ruta: `<carpeta de trabajo>\Json MCP modules\[nombre_modulo].json`.
 2.  **Si NO existe**:
     *   Ejecutar `mcp_prestashop-intel-local_scan_module_structure` indicando la ruta del módulo.
     *   Guardar el resultado JSON en la ruta mencionada arriba.
