@@ -1,6 +1,6 @@
 # PrestaShop Skills for AI coding agents
 
-**41 agent skills that teach Claude Code, Antigravity, Cursor and other AI coding agents how PrestaShop 1.7, 8, 9 and 9.2 really work** — the hooks that exist in each version, the V2 product page, admin grids, translations, multistore, and the traps that turn "looks right" into "breaks on a real shop".
+**42 agent skills that teach Claude Code, Antigravity, Cursor and other AI coding agents how PrestaShop 1.7, 8, 9 and 9.2 really work** — the hooks that exist in each version, the V2 product page, admin grids, translations, multistore, and the traps that turn "looks right" into "breaks on a real shop".
 
 > 🇪🇸 Skills para que los agentes de IA programen bien en PrestaShop. Algunas están escritas en castellano.
 
@@ -22,6 +22,7 @@ cp -r prestashop_skills/prestashop-* ~/.claude/skills/
 | Skill | What it covers |
 |---|---|
 | [`prestashop-9-2`](prestashop-9-2/) | **What changes in 9.2**: the one-page checkout now in core, the six signatures, and the `autoupgrade` traps of the 9.1 → 9.2 jump |
+| [`prestashop-modulo-1-7-a-8`](prestashop-modulo-1-7-a-8/) | **Porting a module from 1.7.x to 8.x**: the damage is PHP 7.4 → 8.1, not PrestaShop — plus the 8 classes, 68 methods and 10 signatures that do change |
 | [`prestashop-modulo-8-a-9`](prestashop-modulo-8-a-9/) | **Porting a module from 8.x to 9.x**: what 9 removed, the traps in the replacements, and auditing at scale without false positives |
 | [`prestashop-tema-hummingbird`](prestashop-tema-hummingbird/) | **Hummingbird child themes (9.1 / 9.2)** and the modules that go with them: enabling, CSS layers, product page, ZIP, caches |
 | `prestashop-product-form` | Product and combination forms (V2) with Symfony form modifiers · 8.1+ and 9 |
@@ -74,21 +75,27 @@ Real endpoints, auth and `ps_configuration` keys as the **official** carrier mod
 `redsys-master-skills/` is a set of notes on the Redsys gateway (core integration, Bizum,
 Apple Pay / Google Pay, secrets) rather than a loadable skill.
 
-## New: PrestaShop 9.2 — three skills
+## Moving a shop forward: one skill per leg
 
 Each folder has its own README with the detail. They're split by **task**, because that's how
 an agent picks a skill:
 
+* [**`prestashop-modulo-1-7-a-8/`**](prestashop-modulo-1-7-a-8/) — *porting a module from
+  1.7.x.* **PrestaShop 8 barely breaks anything; what breaks is the PHP that comes with it**
+  (7.4 → 8.1), and it breaks inside the old libraries that carrier and payment modules
+  bundle. Plus the 8 classes and 68 methods that do go, and the **two signatures that drop a
+  parameter from the middle** — calls stay valid, arguments shift, and you get a 500 with an
+  empty body.
+* [**`prestashop-modulo-8-a-9/`**](prestashop-modulo-8-a-9/) — *porting a module from 8.x.*
+  Crossing a major version **does** remove things: methods, 25 constants, 21 `vendor/`
+  packages (Guzzle throws an `Error`, not an `Exception`). Plus the traps in the replacements
+  the core itself suggests, and the audit order that worked over 91 modules.
 * [**`prestashop-9-2/`**](prestashop-9-2/) — *what changes in 9.2.* It **removes nothing** (0
   methods, constants, routes, hooks or columns gone since 9.1.5). What changes is the
   **one-page checkout now in core** — the page no longer reloads, so a binary payment module
   or a JavaScript-built UI can break in silence —, **six signatures** that append optional
   parameters, and the product conditions. Plus why an override with an old signature **kills
   `autoupgrade` mid-jump**, and when "files on 9.2, database on 9.1.5" is *not* a dead end.
-* [**`prestashop-modulo-8-a-9/`**](prestashop-modulo-8-a-9/) — *porting a module from 8.x.*
-  Crossing a major version **does** remove things: methods, 25 constants, 21 `vendor/`
-  packages (Guzzle throws an `Error`, not an `Exception`). Plus the traps in the replacements
-  the core itself suggests, and the audit order that worked over 91 modules.
 * [**`prestashop-tema-hummingbird/`**](prestashop-tema-hummingbird/) — *child themes on 9.1 /
   9.2.* Enabling a theme when `prestashop:theme:enable` fails, Hummingbird's CSS `@layer`,
   what `core.js` repaints on the product page, the ZIP with `dependencies`, and the caches
